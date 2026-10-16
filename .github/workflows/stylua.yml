@@ -1,0 +1,19 @@
+name: stylua
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - "**.lua"
+      - "stylua.toml"
+      - ".github/workflows/stylua.yml"
+
+jobs:
+  stylua:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: JohnnyMorganz/stylua-action@v4
+        with:
+          version: latest
