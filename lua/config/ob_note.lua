@@ -1,3 +1,10 @@
+---Obsidian 笔记文件路径
+---优先读环境变量 OBSIDIAN_NOTES_FILE，默认 ~/Documents/obsidian/notes/tech/notes.md
+---@return string
+local function notes_file_path()
+  return vim.env.OBSIDIAN_NOTES_FILE or (vim.fn.expand("~") .. "/Documents/obsidian/notes/tech/notes.md")
+end
+
 ---获取视觉选择的精确文本
 ---@return string|nil
 local function get_visual_selection_text()
@@ -67,7 +74,7 @@ function addNote()
 
     local filetype = vim.bo.filetype
     local note = "# note: " .. input .. "\n\n```" .. filetype .. "\n" .. text .. "\n```\n\n-----\n\n"
-    local file = io.open("/home/zsm/Documents/obsidian/notes/tech/notes.md", "a")
+    local file = io.open(notes_file_path(), "a")
     if file then
       file:write(note)
       file:close()
