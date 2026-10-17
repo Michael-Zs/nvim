@@ -65,7 +65,8 @@ vim.keymap.set("n", "<leader>ts", require("config.windows").toggle_gutter, { des
 vim.keymap.set("n", "<LocalLeader>s", vim.lsp.buf.hover, { noremap = true, silent = true, desc = "Hover" }) -- hover info
 
 vim.keymap.set("n", "<leader>v", function()
-  Snacks.picker.lsp_symbols()
+  -- Snacks.picker.lsp_symbols() -- can also use lsp symbols
+  require("aerial").snacks_picker()
 end, { noremap = true, silent = true, desc = "Symbols" })
 
 -- 快捷键切换窗口
