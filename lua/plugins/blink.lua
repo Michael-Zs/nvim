@@ -21,6 +21,24 @@ return {
         },
       },
     },
+    sources = {
+      providers = {
+        snippets = {
+          opts = {
+            -- friendly-snippets 的 package.json 把 global.json 同时注册给 "all" 和
+            -- "markdown"/"tex"/"html" 等语言，blink 合并「全局 + ft」时会加载两遍，
+            -- 导致 md 里 "time" 这类 snippet 出现两个相同候选。
+            -- 这里让 global.json 只保留 "all" 全局这一份。
+            filter_snippets = function(ft, file)
+              if ft ~= "all" and ft ~= "global" and file:match("global%.json$") then
+                return false
+              end
+              return true
+            end,
+          },
+        },
+      },
+    },
     keymap = {
       -- C-y to accept, Enter not bound by blink (native newline), C-b/C-f scroll docs
       preset = "default",
