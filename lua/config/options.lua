@@ -25,3 +25,8 @@ vim.opt.numberwidth = 4
 vim.opt.modeline = false
 
 -- vim.g.snacks_animate = false
+
+-- 自动加载项目本地配置：执行「启动目录及其所有父目录」中的 .nvim.lua / .nvimrc / .exrc
+-- （0.12+ 会向上查找，所以在子目录里启动 nvim 也能加载项目根目录的 .nvim.lua）
+-- 只执行已信任的文件：首次遇到提示查看后需 :trust（按内容 hash 记录，改动文件后要重新信任）
+vim.o.exrc = true
