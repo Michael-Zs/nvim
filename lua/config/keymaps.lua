@@ -26,16 +26,6 @@ vim.keymap.set("n", "<leader>tc", function()
   vim.cmd("TSContext toggle")
 end, { noremap = true, silent = true, desc = "Toggle TSContext" })
 
--- Toggle LSP diagnostics virtual text (hints)
-vim.keymap.set("n", "<leader>td", function()
-  local current = vim.diagnostic.config().virtual_text
-  if current == false then
-    vim.diagnostic.config({ virtual_text = true })
-  else
-    vim.diagnostic.config({ virtual_text = false })
-  end
-end, { noremap = true, silent = true, desc = "Toggle LSP diagnostics" })
-
 -- Toggle LSP（全局开关）
 local lsp_disabled = nil
 
