@@ -9,17 +9,16 @@ function M.setup()
     return vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buftype == "" and vim.api.nvim_buf_get_name(buf) ~= ""
   end
 
-  local function load(win, buf, keep_cursor)
+  local function load(win, buf)
     if not vim.api.nvim_win_is_valid(win) or vim.api.nvim_win_get_buf(win) ~= buf then
       return false
     end
     return vim.api.nvim_win_call(win, function()
-      local view = keep_cursor and vim.fn.winsaveview() or nil
+      -- 在实际加载时保存位置，避免延迟回调覆盖插件刚完成的跳转。
+      local view = vim.fn.winsaveview()
       -- loadview 会重设 foldexpr；禁止触发 OptionSet，以免清空 LSP 折叠缓存。
       local ok = pcall(vim.cmd, "silent noautocmd loadview")
-      if view then
-        vim.fn.winrestview(view)
-      end
+      vim.fn.winrestview(view)
       return ok
     end)
   end
@@ -38,7 +37,7 @@ function M.setup()
         if pending[win] ~= state then
           return
         end
-        local ok = load(win, ev.buf, false)
+        local ok = load(win, ev.buf)
         state.loading = false
         if not ok or lsp_ready[ev.buf] then
           pending[win] = nil
@@ -64,7 +63,7 @@ function M.setup()
           if state.buf == ev.buf and not state.loading then
             pending[win] = nil
             if vim.api.nvim_win_is_valid(win) and vim.wo[win].foldexpr == "v:lua.vim.lsp.foldexpr()" then
-              load(win, ev.buf, true)
+              load(win, ev.buf)
             end
           end
         end

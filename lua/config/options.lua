@@ -14,7 +14,7 @@ vim.opt.diffopt = vim.opt.diffopt + { "vertical", "iwhite", "indent-heuristic", 
 -- })
 
 -- 保存折叠信息
-vim.o.viewoptions = "cursor,folds,slash,unix" -- 保存折叠等视图信息
+vim.o.viewoptions = "folds,slash,unix" -- 光标位置由跳转插件和 LazyVim 的 last_loc 管理
 require("config.folds").setup()
 
 -- 完整 gutter 使用混合行号；分屏时由 config.windows 临时隐藏。
