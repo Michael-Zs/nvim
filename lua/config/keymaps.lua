@@ -45,6 +45,7 @@ end
 
 -- Toggle LSP
 vim.keymap.set("n", "<leader>tl", toggle_lsp, { noremap = true, silent = true, desc = "Toggle LSP" })
+-- use <leader>ud to toggle lsp diagnostics
 
 -- Toggle snacks.scroll
 Snacks.toggle.scroll():map("<leader>ta")
