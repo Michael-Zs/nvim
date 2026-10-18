@@ -3,6 +3,15 @@
 -- 也避免残留的更长映射（snl/snh/...）让 <leader>sn 按下后进入 which-key 等待。
 return {
   "folke/noice.nvim",
+  opts = {
+    lsp = {
+      signature = {
+        auto_open = {
+          enabled = false,
+        },
+      },
+    },
+  },
   keys = {
     { "<leader>sn", false },
     { "<leader>snl", false },
