@@ -2,7 +2,7 @@ require("config.ob_note")
 local split = require("config.split")
 
 -- jf to quit
-vim.api.nvim_set_keymap("i", "jf", "<ESC>", { noremap = true })
+vim.keymap.set("i", "jf", "<ESC>", { noremap = true })
 
 -- Map J to <C-d> (scroll down), K to <C-u> (scroll up) in normal mode
 vim.keymap.set({ "n", "x" }, "J", "<C-d>", { noremap = true, silent = true, desc = "Scroll down half page" })
