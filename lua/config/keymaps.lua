@@ -19,6 +19,11 @@ vim.keymap.set({ "n", "x" }, "<LocalLeader>r", function()
 end, { noremap = true, silent = true, desc = "Toggle lsp symbols" })
 
 vim.keymap.set("n", "[c", function()
+  -- diff 窗口里回退到内置的"上一个改动"
+  -- normal! 的 ! 表示不经过任何映射执行原始按键，既调用内置行为又避免递归触发自己
+  if vim.wo.diff then
+    return vim.cmd("normal! " .. vim.v.count1 .. "[c")
+  end
   require("treesitter-context").go_to_context(vim.v.count1)
 end, { silent = true, desc = "Prev Context" })
 
