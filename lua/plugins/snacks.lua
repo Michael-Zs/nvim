@@ -1,6 +1,27 @@
 return {
   {
     "folke/snacks.nvim",
+    keys = {
+      {
+        -- use "pattern -- glob" or "pattern -- -flags xxx" to search
+        "<leader>/",
+        LazyVim.pick("grep", {
+          filter = {
+            transform = function(_, filter)
+              local pattern, glob = filter.search:match("^(.-)%s+%-%-%s+(.+)$")
+
+              if pattern and glob then
+                glob = vim.trim(glob)
+                if glob ~= "" and glob:sub(1, 1) ~= "-" then
+                  filter.search = pattern .. " -- -g " .. glob
+                end
+              end
+            end,
+          },
+        }),
+        desc = "Grep (Root Dir, glob)",
+      },
+    },
     opts = {
       statuscolumn = {
         left = { "sign", "mark" }, -- 诊断等 sign 优先于 mark
