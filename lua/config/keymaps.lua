@@ -95,11 +95,3 @@ vim.keymap.set(
   split.recent,
   { noremap = true, silent = true, desc = "Toggle right split (recent buffer)" }
 )
-
-vim.keymap.set("n", "<Leader>[", function()
-  vim.cmd("tabprevious")
-end, { noremap = true, silent = true, desc = "Previous tab" })
-
-vim.keymap.set("n", "<Leader>]", function()
-  vim.cmd("tabnext")
-end, { noremap = true, silent = true, desc = "Next tab" })

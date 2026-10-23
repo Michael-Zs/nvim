@@ -1,0 +1,2 @@
+- [ ] can I go definition on a split?
+- [ ] in keymap.lua, set <leader>t as a group, desc = Toggle options
