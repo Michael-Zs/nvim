@@ -6,16 +6,11 @@ vim.opt.rtp:append(lazy .. "/friendly-snippets")
 
 local registry_mod = require("blink.cmp.sources.snippets.default.registry")
 
--- 与 lua/plugins/blink.lua 中相同的 filter
-local fix = function(ft, file)
-  if ft ~= "all" and ft ~= "global" and file:match("global%.json$") then
-    return false
-  end
-  return true
-end
+local root = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":p:h:h")
+local filter_snippets = dofile(root .. "/lua/plugins/blink.lua").opts.sources.providers.snippets.opts.filter_snippets
 
 local before = registry_mod.new({})
-local after = registry_mod.new({ filter_snippets = fix })
+local after = registry_mod.new({ filter_snippets = filter_snippets })
 
 -- 模拟 blink snippets source 的合并逻辑：
 -- global_snippets = { "all" }（默认）+ get_snippets_for_ft(ft)，extended_filetypes 默认空
@@ -63,6 +58,13 @@ local function expect(cond, msg)
 end
 
 print(("== 检查 %d 个语言键 =="):format(#keys))
+
+local friendly_global = lazy .. "/friendly-snippets/snippets/global.json"
+expect(not filter_snippets("markdown", friendly_global), "移除 friendly-snippets 的语言级重复注册")
+expect(filter_snippets("all", friendly_global), "保留 all 全局注册")
+expect(filter_snippets("global", friendly_global), "保留 global 别名注册")
+expect(filter_snippets("python", "/custom/snippets/global.json"), "保留其他来源的同名 global.json")
+expect(filter_snippets("python", "/custom/snippets/python_global.json"), "保留 python_global.json")
 
 -- ① 修复前：哪些语言会重复加载同一文件（确认 bug 范围）
 local dup_langs = {}

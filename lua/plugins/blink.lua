@@ -1,3 +1,5 @@
+local friendly_global = vim.fs.normalize(vim.fn.stdpath("data") .. "/lazy/friendly-snippets/snippets/global.json")
+
 return {
   "saghen/blink.cmp",
   dependencies = { "xzbdmw/colorful-menu.nvim", opts = {} },
@@ -30,10 +32,7 @@ return {
             -- 导致 md 里 "time" 这类 snippet 出现两个相同候选。
             -- 这里让 global.json 只保留 "all" 全局这一份。
             filter_snippets = function(ft, file)
-              if ft ~= "all" and ft ~= "global" and file:match("global%.json$") then
-                return false
-              end
-              return true
+              return file ~= friendly_global or ft == "all" or ft == "global"
             end,
           },
         },
