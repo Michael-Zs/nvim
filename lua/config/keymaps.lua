@@ -11,14 +11,6 @@ vim.keymap.set({ "n", "x" }, "K", "<C-u>", { noremap = true, silent = true, desc
 -- bind - as $ ("v" = visual + select, "o" = operator-pending so d-/y- work)
 vim.keymap.set({ "n", "v", "o" }, "-", "$", { noremap = true, silent = true })
 
--- WARN: maybe not work
-vim.keymap.set({ "n", "x" }, "<LocalLeader>r", function()
-  pcall(function()
-    vim.cmd("AerialClose")
-  end)
-  vim.cmd("Trouble lsp toggle")
-end, { noremap = true, silent = true, desc = "Toggle lsp symbols" })
-
 vim.keymap.set("n", "[c", function()
   -- diff 窗口里回退到内置的"上一个改动"
   -- normal! 的 ! 表示不经过任何映射执行原始按键，既调用内置行为又避免递归触发自己
