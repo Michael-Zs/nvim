@@ -1,4 +1,3 @@
-require("config.ob_note")
 local split = require("config.split")
 
 -- jf to quit
@@ -69,9 +68,6 @@ Snacks.toggle.zoom():map("<leader>m")
 vim.keymap.set("n", "zm", function()
   vim.cmd("normal! za")
 end, { noremap = true, silent = true, desc = "Toggle fold" })
-
--- add note to obsidian
-vim.keymap.set("v", "<LocalLeader>n", addNote, { silent = true, desc = "Add to note" })
 
 -- \x: 选择 buffer 右分屏打开，或关闭已有的右侧代码窗口
 vim.keymap.set(
