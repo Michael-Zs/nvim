@@ -1,3 +1,7 @@
+-- stylua: ignore
+if true then return {} end
+
+-- disable copilot completely
 return {
   "zbirenbaum/copilot.lua",
   dependencies = {
